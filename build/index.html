@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, width=device-width">
+  <title>Task</title>
+  <body>
+    <div class="tabs">
+      <div class="tab">
+        <input id="tab-1" type="radio" name="tab-group-1" checked>
+        <label for="tab-1">Convert</label>
+        <div class="content">
+          <div class="currency">
+            <form class="calculator__form">
+              <div class="currency__region">
+                <p class="text">From</p>
+                <select class="transfer" style="height:30px">
+                  <option>UAN</option>
+                  <option>USD</option>
+                </select>
+                <input class="field" id="fromCurrency" type="text" disabled>
+              </div>
+              <div class="currency__region">
+                <p class="text">To</p>
+                <select class="transfer" style="height:30px">
+                  <option>UAN</option>
+                  <option>USD</option>
+                </select>
+                <input class="field" id="toCurrency" type="text" disabled>
+              </div>
+              <div class="currency__row">
+                <button class="currency__keys" type="button" value="7">7</button>
+                <button class="currency__keys" type="button" value="8">8</button>
+                <button class="currency__keys" type="button" value="9">9</button>
+              </div>
+              <div class="currency__row">
+                <button class="currency__keys" type="button" value="4">4</button>
+                <button class="currency__keys" type="button" value="5">5</button>
+                <button class="currency__keys" type="button" value="6">6</button>
+              </div>
+              <div class="currency__row">
+                <button class="currency__keys" type="button" value="1">1</button>
+                <button class="currency__keys" type="button" value="2">2</button>
+                <button class="currency__keys" type="button" value="3">3</button>
+              </div>
+              <div class="currency__row">
+                <button class="currency__keys" type="button" value="0">0</button>
+                <button class="currency__keys currency__clear" type="button" value="C">C</button>
+                <button class="currency__keys currency__clear" type="button" value="D">D</button>
+              </div>
+              <div class="currency__row">
+                <select class="transfer" name="bla" style="height:30px">
+                  <option>Buy</option>
+                  <option>Sale</option>
+                </select>
+                <button class="currency__keys currency__key--convert" type="button" value="=">convert</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="tab">
+        <input id="tab-2" type="radio" name="tab-group-1">
+        <label for="tab-2">Calculator</label>
+        <div class="content">
+          <div class="calculator">
+            <div class="input" id="input"></div>
+            <div class="buttons">
+              <div class="currency__row">
+                <div class="calculator__clear" id="clear">C</div>
+                <div class="calculator__clear" id="lastValue">D</div>
+                <div class="operators calculator__key--button">+</div>
+              </div>
+              <div class="leftPanel">
+                <div class="currency__row">
+                  <div class="calculator__keys">7</div>
+                  <div class="calculator__keys">8</div>
+                  <div class="calculator__keys">9</div>
+                  <div class="operators">-</div>
+                </div>
+                <div class="currency__row">
+                  <div class="calculator__keys">4</div>
+                  <div class="calculator__keys">5</div>
+                  <div class="calculator__keys">6</div>
+                  <div class="operators">&times</div>
+                </div>
+                <div class="currency__row">
+                  <div class="calculator__keys">1</div>
+                  <div class="calculator__keys">2</div>
+                  <div class="calculator__keys">3</div>
+                  <div class="operators">&divide;</div>
+                </div>
+                <div class="currency__row">
+                  <div class="calculator__keys">0</div>
+                  <div class="operators">.</div>
+                  <div class="operators calculator__key--button" id="result">=</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="storyDiv">
+        <button class="storyBut" id="storyButton">Story calculator</button>
+      </div>
+    </div>
+  <script type="text/javascript" src="main.js"></script></body>
+</html>

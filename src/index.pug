@@ -1,0 +1,79 @@
+html
+    head
+    meta(charset = 'utf-8')
+    meta(name='viewport', content="initial-scale=1.0, width=device-width")
+    title Task
+    body
+        .tabs
+            .tab
+                input#tab-1(type='radio')(name="tab-group-1" checked)
+                label(for="tab-1") Convert
+                .content
+                    .currency
+                        form(class='calculator__form')
+                            .currency__region
+                                p(class='text') From
+                                select(class='transfer' style='height:30px')
+                                    option UAN
+                                    option USD
+                                input#fromCurrency(type='text' class='field' disabled)
+                            .currency__region
+                                p(class='text') To
+                                select(class='transfer' style='height:30px')
+                                    option UAN
+                                    option USD
+                                input#toCurrency(type='text' class='field' disabled)
+                            .currency__row
+                                button(type='button')(value='7' class='currency__keys') 7
+                                button(type='button')(value='8' class='currency__keys') 8
+                                button(type='button')(value='9' class='currency__keys') 9
+                            .currency__row
+                                button(type='button')(value='4' class='currency__keys') 4
+                                button(type='button')(value='5' class='currency__keys') 5
+                                button(type='button')(value='6' class='currency__keys') 6
+                            .currency__row
+                                button(type='button')(value='1' class='currency__keys') 1
+                                button(type='button')(value='2' class='currency__keys') 2
+                                button(type='button')(value='3' class='currency__keys') 3
+                            .currency__row
+                                button(type='button')(value='0' class='currency__keys') 0
+                                button(type='button')(value='C' class='currency__keys currency__clear') C
+                                button(type='button')(value='D' class='currency__keys currency__clear') D
+                            .currency__row
+                                select(class='transfer' name='bla' style='height:30px')
+                                    option Buy
+                                    option Sale
+                                button(type='button')(value='=' class='currency__keys currency__key--convert') convert
+            .tab
+                input#tab-2(type='radio' name='tab-group-1')
+                label(for='tab-2') Calculator
+                .content
+                    .calculator
+                        #input(class='input')
+                        .buttons
+                            .currency__row
+                               #clear(class='calculator__clear') C
+                               #lastValue(class='calculator__clear') D
+                               div(class='operators calculator__key--button') +
+                            .leftPanel
+                                .currency__row
+                                    div(class='calculator__keys') 7
+                                    div(class='calculator__keys') 8
+                                    div(class='calculator__keys') 9
+                                    div(class='operators') -
+                                .currency__row
+                                    div(class='calculator__keys') 4
+                                    div(class='calculator__keys') 5
+                                    div(class='calculator__keys') 6
+                                    div(class='operators') &times
+                                .currency__row
+                                    div(class='calculator__keys') 1
+                                    div(class='calculator__keys') 2
+                                    div(class='calculator__keys') 3
+                                    div(class='operators') &divide;
+                                .currency__row
+                                    div(class='calculator__keys') 0
+                                    div(class='operators') .
+                                    #result(class='operators calculator__key--button') =
+            .storyDiv
+                button#storyButton(class='storyBut') Story calculator

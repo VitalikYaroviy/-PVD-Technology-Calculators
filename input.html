@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!--<div class="tabs">-->
+<!--&lt;!&ndash;<div class="tab">&ndash;&gt;-->
+<!--&lt;!&ndash;<input type="radio" id="tab-1" name="tab-group-1" checked>&ndash;&gt;-->
+<!--&lt;!&ndash;<label for="tab-1">C</label>&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="content">&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="calculator">&ndash;&gt;-->
+<!--&lt;!&ndash;<form class="calculator__form">&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="currency">&ndash;&gt;-->
+<!--&lt;!&ndash;<p class="text">From:</p>&ndash;&gt;-->
+<!--&lt;!&ndash;<select class="select">&ndash;&gt;-->
+<!--&lt;!&ndash;<option>UAN</option>&ndash;&gt;-->
+<!--&lt;!&ndash;<option>USD</option>&ndash;&gt;-->
+<!--&lt;!&ndash;</select>&ndash;&gt;-->
+<!--&lt;!&ndash;<input type="text" class="input" id="fromCurrency" disabled/>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="currency">&ndash;&gt;-->
+<!--&lt;!&ndash;<p class="text">To:</p>&ndash;&gt;-->
+<!--&lt;!&ndash;<select class="select">&ndash;&gt;-->
+<!--&lt;!&ndash;<option>UAN</option>&ndash;&gt;-->
+<!--&lt;!&ndash;<option>USD</option>&ndash;&gt;-->
+<!--&lt;!&ndash;</select>&ndash;&gt;-->
+<!--&lt;!&ndash;<input type="text" class="input" id="toCurrency" disabled/>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="calculator__row">&ndash;&gt;-->
+<!--&lt;!&ndash;<button type="button" value="7" class="currency__key calculator__button">7</button>&ndash;&gt;-->
+<!--&lt;!&ndash;<button type="button" value="8" class="currency__key calculator__button">8</button>&ndash;&gt;-->
+<!--&lt;!&ndash;<button type="button" value="9" class="currency__key calculator__button">9</button>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="calculator__row">&ndash;&gt;-->
+<!--&lt;!&ndash;<button type="button" value="4" class="currency__key calculator__button">4</button>&ndash;&gt;-->
+<!--&lt;!&ndash;<button type="button" value="5" class="currency__key calculator__button">5</button>&ndash;&gt;-->
+<!--&lt;!&ndash;<button type="button" value="6" class="currency__key calculator__button">6</button>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="calculator__row">&ndash;&gt;-->
+<!--&lt;!&ndash;<button type="button" value="1" class="currency__key calculator__button">1</button>&ndash;&gt;-->
+<!--&lt;!&ndash;<button type="button" value="2" class="currency__key calculator__button">2</button>&ndash;&gt;-->
+<!--&lt;!&ndash;<button type="button" value="3" class="currency__key calculator__button">3</button>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="calculator__row">&ndash;&gt;-->
+<!--&lt;!&ndash;<button type="button" value="0" class="currency__key calculator__button">0</button>&ndash;&gt;-->
+<!--&lt;!&ndash;<button type="button" value="c" class="currency__key calculator__button">C</button>&ndash;&gt;-->
+<!--&lt;!&ndash;<button type="button" value="d" class="currency__key calculator__button">D</button>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="calculator__row">&ndash;&gt;-->
+<!--&lt;!&ndash;<button type="button" value="=" class="currency__key currency__key&#45;&#45;plus">convert</button>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</form>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--<div class="tab">-->
+    <!--<input type="radio" id="tab-2" name="tab-group-1">-->
+    <!--<label for="tab-2">N</label>-->
+    <!--<div class="content">-->
+        <!--<div class="calculator">-->
+            <!--<form class="calculator__form">-->
+                <!--<div class="calculator__row">-->
+                    <!--<input type="text" class="calculator__display" id="display" disabled/>-->
+                <!--</div>-->
+
+                <!--<div class="calculator__row">-->
+                    <!--<button type="button" value="c" class="calculator__key calculator__clear">C</button>-->
+                    <!--<button type="button" value="d" class="calculator__key calculator__backspace">D</button>-->
+                    <!--<button type="button" value="+" class="calculator__key calculator__key&#45;&#45;plus">+</button>-->
+                <!--</div>-->
+
+                <!--<div class="calculator__row">-->
+                    <!--<button type="button" value="7" class="calculator__key calculator__button">7</button>-->
+                    <!--<button type="button" value="8" class="calculator__key calculator__button">8</button>-->
+                    <!--<button type="button" value="9" class="calculator__key calculator__button">9</button>-->
+                    <!--<button type="button" value="-" class="calculator__key calculator__button">-</button>-->
+                <!--</div>-->
+
+                <!--<div class="calculator__row">-->
+                    <!--<button type="button" value="6" class="calculator__key calculator__button">4</button>-->
+                    <!--<button type="button" value="5" class="calculator__key calculator__button">5</button>-->
+                    <!--<button type="button" value="4" class="calculator__key calculator__button">6</button>-->
+                    <!--<button type="button" value="*" class="calculator__key calculator__button">*</button>-->
+                <!--</div>-->
+
+                <!--<div class="calculator__row">-->
+                    <!--<button type="button" value="1" class="calculator__key calculator__button">1</button>-->
+                    <!--<button type="button" value="2" class="calculator__key calculator__button">2</button>-->
+                    <!--<button type="button" value="3" class="calculator__key calculator__button">3</button>-->
+                    <!--<button type="button" value="/" class="calculator__key calculator__button">/</button>-->
+                <!--</div>-->
+
+                <!--<div class="calculator__row">-->
+                    <!--<button type="button" value="0" class="calculator__key calculator__button">0</button>-->
+                    <!--<button type="button" value="." class="calculator__key calculator__button">.</button>-->
+                    <!--<button type="button" value="=" class="calculator__key calculator__key&#45;&#45;plus">=</button>-->
+                <!--</div>-->
+            <!--</form>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<!--</div>-->
+</body>
+</html>
