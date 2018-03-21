@@ -16,13 +16,13 @@ html
                                 select(class='transfer' style='height:30px')
                                     option UAN
                                     option USD
-                                input#fromCurrency(type='text' class='field' disabled)
+                                input#fromCurrency(type='number' class='field' onkeyup="this.value = this.value.replace (/\D/gi, '').replace (/^0+/, '')")
                             .currency__region
                                 p(class='text') To
                                 select(class='transfer' style='height:30px')
                                     option UAN
                                     option USD
-                                input#toCurrency(type='text' class='field' disabled)
+                                input#toCurrency(type='number' class='field' onkeyup="this.value = this.value.replace (/\D/gi, '').replace (/^0+/, '')")
                             .currency__row
                                 button(type='button')(value='7' class='currency__keys') 7
                                 button(type='button')(value='8' class='currency__keys') 8
@@ -49,12 +49,13 @@ html
                 label(for='tab-2') Calculator
                 .content
                     .calculator
-                        #input(class='input')
+                        input#input(class='input')
                         .buttons
                             .currency__row
                                #clear(class='calculator__clear') C
                                #lastValue(class='calculator__clear') D
-                               div(class='operators calculator__key--button') +
+                               div(class='operators') +
+                               div#minus(class='minus') +/-
                             .leftPanel
                                 .currency__row
                                     div(class='calculator__keys') 7
@@ -65,15 +66,15 @@ html
                                     div(class='calculator__keys') 4
                                     div(class='calculator__keys') 5
                                     div(class='calculator__keys') 6
-                                    div(class='operators') &times
+                                    div(class='operators') *
                                 .currency__row
                                     div(class='calculator__keys') 1
                                     div(class='calculator__keys') 2
                                     div(class='calculator__keys') 3
-                                    div(class='operators') &divide;
+                                    div(class='operators') /
                                 .currency__row
                                     div(class='calculator__keys') 0
                                     div(class='operators') .
-                                    #result(class='operators calculator__key--button') =
+                                    #result(class='calculator__key--button') =
             .storyDiv
                 button#storyButton(class='storyBut') Story calculator

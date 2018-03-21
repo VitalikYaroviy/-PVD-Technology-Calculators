@@ -51,7 +51,7 @@ for (let i = 0; i < currencyClear.length; i++) {
         if (currencyClear[i].value === 'C') {
             document.getElementById('fromCurrency').value = '';
         } else if (currencyClear[i].value === 'D') {
-            document.getElementById('fromCurrency').value = document.getElementById('fromCurrency').value.slice(0, -1);
+                document.getElementById('fromCurrency').value = document.getElementById('fromCurrency').value.slice(0, -1);
         }
     })
 }

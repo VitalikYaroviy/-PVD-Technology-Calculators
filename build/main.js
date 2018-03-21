@@ -90,84 +90,144 @@ let input = document.getElementById('input'),
     resultDisplayed = false;
 
 for (let i = 0; i < number.length; i++) {
-    number[i].addEventListener("click", (e) => {
-        let currentString = input.innerHTML;
+    number[i].addEventListener('click', (e) => {
+        let currentString = input.value;
         let lastChar = currentString[currentString.length - 1];
 
         if (resultDisplayed === false) {
-            input.innerHTML += e.target.innerHTML;
-        } else if (resultDisplayed === true && lastChar === "+" || lastChar === "-" || lastChar === "×" || lastChar === "÷") {
+            input.value += e.target.innerHTML;
+        } else if (resultDisplayed === true && lastChar === '+' || lastChar === '-' || lastChar === '*' || lastChar === '/') {
             resultDisplayed = false;
-            input.innerHTML += e.target.innerHTML;
+            input.value += e.target.innerHTML;
         } else {
             resultDisplayed = false;
-            input.innerHTML = "";
-            input.innerHTML += e.target.innerHTML;
+            input.value = "";
+            input.value += e.target.innerHTML;
         }
     });
 }
 for (let i = 0; i < operator.length; i++) {
-    operator[i].addEventListener("click", (e) => {
-        let currentString = input.innerHTML;
-        let lastChar = currentString[currentString.length - 1];
-        if (lastChar === "+" ||
-            lastChar === "-" ||
-            lastChar === "×" ||
-            lastChar === "÷" ||
-            lastChar === "." ||
-            lastChar === "=") {
-            let newString = currentString.slice(0, -1) + e.target.innerHTML;
-            input.innerHTML = newString;
-        } else if (currentString.length === 0) {
-            alert("enter a number first");
-        } else {
-            input.innerHTML += e.target.innerHTML;
-        }
-    });
+    operator[i].addEventListener('click', searchOperators)
 }
 
-result.addEventListener("click", () => {
-    let inputString = input.innerHTML;
-    let numbers = inputString.split(/[+\-×÷]/g);
-    let operators = inputString.replace(/[0-9]|\./g, "").split("");
+document.getElementById('input').addEventListener('input', searchOperators);
 
-    let divide = operators.indexOf("÷");
+function searchOperators(e) {
+    let lastChar,
+    currentString;
+    if (e.data === '-' || e.data === '+' || e.data === '*' || e.data === '/') {
+        currentString = input.value.slice(0, -1);
+        lastChar = currentString[currentString.length - 1];
+    } else {
+        currentString = input.value;
+        lastChar = currentString[currentString.length - 1];
+    }
+    if (lastChar === '+' ||
+        lastChar === '-' ||
+        lastChar === '*' ||
+        lastChar === '/' ||
+        lastChar === '.' ||
+        lastChar === '=') {
+        let newString = currentString.slice(0, -1) + e.target.innerHTML;
+        input.value = newString;
+    } else if (currentString.length === 0) {
+        alert('Enter a number first');
+    } else {
+        input.value += e.target.innerHTML;
+    }
+}
+
+let minus = document.getElementById('minus');
+minus.addEventListener('click', () => {
+    let dataInput = input.value;
+    let numbers = dataInput.split(/[+\-*/]/g);
+    let value = Number(numbers[numbers.length - 1]);
+    if (value !== 0) {
+        let changedValue = value * (-1);
+        let operation = '';
+        let count = 0;
+        for (let i = dataInput.length - 1; i >= 0; i--) {
+            if (dataInput[i] !== '+' && dataInput[i] !== '-' && dataInput[i] !== '*' && dataInput[i] !== '/') {
+                count--;
+                operation = dataInput.slice(0, count);
+                if (operation === '') {
+                    input.value = operation + changedValue.toString();
+                }
+            } else {
+                operation = dataInput.slice(0, count);
+                input.value = operation + changedValue.toString();
+                break;
+            }
+        }
+    }
+});
+
+result.addEventListener('click', () => {
+    let inputString = input.value;
+    let numbers = inputString.split(/[+\-*/]/g);
+    for (let i = 0; i < numbers.length - 1; i++) {
+        if (numbers[i] === '') {
+            numbers[i + 1] = parseFloat(numbers[i + 1]) * -1;
+            numbers.splice(i, 1);
+        }
+    }
+    let operators = [];
+    for (let i = 0; i < inputString.length - 1; i++) {
+        if ((inputString[i] === '-' || inputString[i] === '+' || inputString[i] === '*' || inputString[i] === '/') &&
+            (inputString[i + 1] === '+' || inputString[i + 1] === '-' || inputString[i + 1] === '*' || inputString[i + 1] === '/')) {
+            operators.push(inputString[i])
+        } else if ((inputString[i] === '-' || inputString[i] === '+' || inputString[i] === '*' || inputString[i] === '/') &&
+            (inputString[i - 1] === '+' || inputString[i - 1] === '-' || inputString[i - 1] === '*' || inputString[i - 1] === '/')) {
+            i++
+        } else if (inputString[i] === '-' && i === 0) {
+            i++;
+        }
+        else if ((inputString[i] === '-' || inputString[i] === '+' || inputString[i] === '*' || inputString[i] === '/') &&
+            (inputString[i + 1] !== '+' && inputString[i + 1] !== '-' && inputString[i + 1] !== '*' && inputString[i + 1] !== '/')) {
+            operators.push(inputString[i])
+        }
+    }
+
+    let divide = operators.indexOf('/');
     while (divide !== -1) {
-        numbers.splice(divide, 2, parseFloat(numbers[divide]) / parseFloat(numbers[divide + 1]));
+        numbers.splice(divide, 2, numbers[divide] / numbers[divide + 1]);
         operators.splice(divide, 1);
-        divide = operators.indexOf("÷");
+        divide = operators.indexOf('/');
     }
 
-    let multiply = operators.indexOf("×");
+    let multiply = operators.indexOf('*');
     while (multiply !== -1) {
-        numbers.splice(multiply, 2, parseFloat(numbers[multiply]) * parseFloat(numbers[multiply + 1]));
+        numbers.splice(multiply, 2, numbers[multiply] * numbers[multiply + 1]);
         operators.splice(multiply, 1);
-        multiply = operators.indexOf("×");
+        multiply = operators.indexOf('*');
     }
 
-    let subtract = operators.indexOf("-");
-    while (subtract !== -1) {
-        numbers.splice(subtract, 2, parseFloat(numbers[subtract]) - parseFloat(numbers[subtract + 1]));
-        operators.splice(subtract, 1);
-        subtract = operators.indexOf("-");
-    }
-
-    let add = operators.indexOf("+");
+    let add = operators.indexOf('+');
     while (add !== -1) {
         numbers.splice(add, 2, parseFloat(numbers[add]) + parseFloat(numbers[add + 1]));
         operators.splice(add, 1);
-        add = operators.indexOf("+");
+        add = operators.indexOf('+');
     }
-    input.innerHTML = numbers[0];
+
+    let subtract = operators.indexOf('-');
+    while (subtract !== -1) {
+        numbers.splice(subtract, 2, numbers[subtract] - numbers[subtract + 1]);
+        operators.splice(subtract, 1);
+        subtract = operators.indexOf('-');
+    }
+    if (isNaN(numbers[0]) === true) {
+        input.value = 'Error'
+    } else {
+        input.value = numbers[0];
+    }
     resultDisplayed = true;
 
     let listAction = localStorage.listAction ? JSON.parse(localStorage.listAction) : [];
     let listAnswer = localStorage.listAnswer ? JSON.parse(localStorage.listAnswer) : [];
-    let action = inputString.slice(0, -1);
+    let action = inputString;
     let expression = [action];
     let digitResult = [numbers[0]];
-    console.log(111, digitResult)
-    if (inputString !== '' && typeof digitResult[0] !== "string") {
+    if (inputString !== '' && typeof digitResult[0] !== 'string') {
         listAction.push(expression);
         listAnswer.push(digitResult);
     }
@@ -175,12 +235,12 @@ result.addEventListener("click", () => {
     localStorage.listAnswer = JSON.stringify(listAnswer);
 });
 
-clear.addEventListener("click", () => {
-    input.innerHTML = "";
+clear.addEventListener('click', () => {
+    input.value = "";
 });
 
 lastValue.addEventListener('click', () => {
-    input.innerHTML = input.innerHTML.slice(0, -1);
+    input.value = input.value.slice(0, -1);
 });
 
 let story = document.getElementById('storyButton');
@@ -193,12 +253,22 @@ story.addEventListener('click', () => {
             storyText.className = 'storyText';
             let storyDiv = document.getElementsByClassName('storyDiv');
             storyDiv[0].appendChild(storyText);
-            storyText.innerHTML = dataExpression[i] + '=' + dataAnswer[i]
+            storyText.innerText = dataExpression[i] + '=' + dataAnswer[i]
         }
     } else {
         alert('Sorry, but the story is empty')
     }
 });
+
+let valid = document.getElementById('input'),
+    regexp = /^\-?[-+*/0-9]*$/;
+
+valid.onkeypress = function (e) {
+    let check = valid.value + String.fromCharCode(e.charCode);
+    if (!regexp.test(check)) {
+        return false;
+    }
+};
 
 /***/ }),
 /* 2 */
@@ -240,7 +310,7 @@ exports = module.exports = __webpack_require__(4)(undefined);
 
 
 // module
-exports.push([module.i, "/*Block*/\n.tabs {\n  width: 800px;\n  position: relative;\n  min-height: 500px;\n  clear: both;\n  margin: 25px 0;\n}\n.tab {\n  float: left;\n}\n.tab label {\n  background: #eee;\n  padding: 10px;\n  border: 1px solid #ccc;\n  margin-left: -1px;\n  position: relative;\n  left: 1px;\n  border-top-right-radius: 5px;\n  border-bottom: none;\n}\n.tab [type=radio] {\n  display: none;\n}\n.content {\n  height: 340px;\n  width: 280px;\n  position: absolute;\n  top: 28px;\n  left: 0;\n  background: #fff;\n  right: 0;\n  bottom: 0;\n}\n[type=radio]:checked ~ label {\n  background: #fff;\n  border-bottom: 1px solid #fff;\n  z-index: 2;\n}\n[type=radio]:checked ~ label ~ .content {\n  z-index: 1;\n}\n/*Calculators*/\n.currency {\n  width: 280px;\n  height: 340px;\n  border: 1px solid #000;\n  border-top-right-radius: 5px;\n  border-bottom-left-radius: 5px;\n  border-bottom-right-radius: 5px;\n  border-top: none;\n  text-align: center;\n  background-color: #fff;\n  box-shadow: 0 0 30px #000;\n}\n.currency__row {\n  margin: 10px 0;\n  display: flex;\n  justify-content: space-between;\n  align-items: baseline;\n}\n.currency__region {\n  display: flex;\n  align-items: baseline;\n}\n.text {\n  width: 60px;\n  margin: 10px 0;\n  text-align: center;\n}\n.transfer {\n  margin: 5px 12px;\n  width: 53px;\n  border: solid 1px #000;\n  border-radius: 5px;\n}\n.field {\n  width: 100px;\n  height: 25px;\n  margin: 10px 5px;\n  border: solid 1px #000;\n  border-radius: 5px;\n  padding: 0 10px;\n}\n.calculator__keys {\n  width: 45px;\n  height: 35px;\n  cursor: pointer;\n  border: 1px solid #000;\n  border-radius: 5px;\n  transition: all 0.2s;\n  text-transform: uppercase;\n  outline: none;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #aaa;\n}\n.calculator__clear {\n  width: 45px;\n  height: 35px;\n  cursor: pointer;\n  border: 1px solid #000;\n  border-radius: 5px;\n  transition: all 0.2s;\n  text-transform: uppercase;\n  outline: none;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #3079ed;\n}\n.operators {\n  border: solid 1px #000;\n  border-radius: 5px;\n  width: 45px;\n  height: 35px;\n  outline: none;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.currency__keys {\n  width: 45px;\n  height: 35px;\n  cursor: pointer;\n  border: 1px solid #000;\n  border-radius: 5px;\n  transition: all 0.2s;\n  text-transform: uppercase;\n  outline: none;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #aaa;\n  margin: 0 15px;\n}\n.calculator__key--button {\n  width: 110px;\n}\n.currency__key--convert {\n  width: 148px;\n  margin: 0 15px;\n}\n.calculator {\n  padding: 20px;\n  border-radius: 5px;\n  height: 300px;\n  box-shadow: 0 0 30px #000;\n}\n.input {\n  border: 1px solid #000;\n  border-radius: 5px;\n  height: 50px;\n  width: 222px;\n  padding-right: 15px;\n  padding-top: 10px;\n  text-align: right;\n  margin-right: 6px;\n  font-size: 2.5rem;\n  overflow-x: auto;\n  transition: all 0.2s ease-in-out;\n}\n.input:hover {\n  border: 1px solid #bbb;\n  box-shadow: inset 0 1px 4px 0 rgba(0,0,0,0.2);\n}\n.operators:hover {\n  background-color: #ffd700;\n}\n.currency__keys:hover {\n  background-color: #000;\n  font-weight: 700;\n  color: #fff;\n}\n.calculator__keys:hover {\n  background-color: #000;\n  font-weight: 700;\n  color: #fff;\n}\n.calculator__clear:hover {\n  background-color: #00f;\n  color: #fff;\n}\n/*Story block*/\n.storyDiv {\n  text-align: center;\n  width: 250px;\n  height: 350px;\n  max-height: 370px;\n  border: dotted 2px #000;\n  border-radius: 5px;\n  float: right;\n  margin: 5px;\n  overflow: auto;\n}\n.storyBut {\n  border-radius: 28px;\n  color: #fff;\n  font-size: 13px;\n  background: #3498db;\n  padding: 10px 20px 10px 20px;\n  margin: 5px;\n  text-decoration: none;\n  outline: none;\n}\n.storyBut:hover {\n  background: #3cb0fd;\n  text-decoration: none;\n}\n.storyText {\n  border-bottom: dotted 1px #000;\n}\n", ""]);
+exports.push([module.i, "/*Block*/\n.tabs {\n  width: 800px;\n  position: relative;\n  min-height: 500px;\n  clear: both;\n  margin: 25px 0;\n}\n.tab {\n  float: left;\n}\n.tab label {\n  background: #eee;\n  padding: 10px;\n  border: 1px solid #ccc;\n  margin-left: -1px;\n  position: relative;\n  left: 1px;\n  border-top-right-radius: 5px;\n  border-bottom: none;\n}\n.tab [type=radio] {\n  display: none;\n}\n.content {\n  height: 340px;\n  width: 280px;\n  position: absolute;\n  top: 28px;\n  left: 0;\n  background: #fff;\n  right: 0;\n  bottom: 0;\n}\n[type=radio]:checked ~ label {\n  background: #fff;\n  border-bottom: 1px solid #fff;\n  z-index: 2;\n}\n[type=radio]:checked ~ label ~ .content {\n  z-index: 1;\n}\n/*Calculators*/\n.currency {\n  width: 280px;\n  height: 340px;\n  border: 1px solid #000;\n  border-top-right-radius: 5px;\n  border-bottom-left-radius: 5px;\n  border-bottom-right-radius: 5px;\n  border-top: none;\n  text-align: center;\n  background-color: #fff;\n  box-shadow: 0 0 30px #000;\n}\n.currency__row {\n  margin: 10px 0;\n  display: flex;\n  justify-content: space-between;\n  align-items: baseline;\n}\n.currency__region {\n  display: flex;\n  align-items: baseline;\n}\n.text {\n  width: 60px;\n  margin: 10px 0;\n  text-align: center;\n}\n.transfer {\n  margin: 5px 12px;\n  width: 53px;\n  border: solid 1px #000;\n  border-radius: 5px;\n}\n.field {\n  width: 100px;\n  height: 25px;\n  margin: 10px 5px;\n  border: solid 1px #000;\n  border-radius: 5px;\n  padding: 0 10px;\n}\n.calculator__keys {\n  width: 45px;\n  height: 35px;\n  cursor: pointer;\n  border: 1px solid #000;\n  border-radius: 5px;\n  transition: all 0.2s;\n  text-transform: uppercase;\n  outline: none;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #aaa;\n}\n.calculator__clear {\n  width: 45px;\n  height: 35px;\n  cursor: pointer;\n  border: 1px solid #000;\n  border-radius: 5px;\n  transition: all 0.2s;\n  text-transform: uppercase;\n  outline: none;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #3079ed;\n}\n.operators {\n  border: solid 1px #000;\n  border-radius: 5px;\n  width: 45px;\n  height: 35px;\n  outline: none;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.minus {\n  border: solid 1px #000;\n  border-radius: 5px;\n  width: 45px;\n  height: 35px;\n  outline: none;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.currency__keys {\n  width: 45px;\n  height: 35px;\n  cursor: pointer;\n  border: 1px solid #000;\n  border-radius: 5px;\n  transition: all 0.2s;\n  text-transform: uppercase;\n  outline: none;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #aaa;\n  margin: 0 15px;\n}\n.calculator__key--button {\n  width: 110px;\n  height: 35px;\n  cursor: pointer;\n  border: 1px solid #000;\n  border-radius: 5px;\n  transition: all 0.2s;\n  text-transform: uppercase;\n  outline: none;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #aaa;\n}\n.currency__key--convert {\n  width: 148px;\n  margin: 0 15px;\n}\n.calculator {\n  padding: 20px;\n  border-radius: 5px;\n  height: 300px;\n  box-shadow: 0 0 30px #000;\n}\n.input {\n  border: 1px solid #000;\n  border-radius: 5px;\n  height: 50px;\n  width: 222px;\n  padding-right: 15px;\n  padding-top: 10px;\n  text-align: right;\n  margin-right: 6px;\n  font-size: 30px;\n  transition: all 0.2s ease-in-out;\n  overflow: hidden;\n}\n.input:hover {\n  border: 1px solid #bbb;\n  box-shadow: inset 0 1px 4px 0 rgba(0,0,0,0.2);\n}\n.operators:hover {\n  background-color: #ffd700;\n}\n.minus:hover {\n  background-color: #ff4500;\n}\n.currency__keys:hover {\n  background-color: #000;\n  font-weight: 700;\n  color: #fff;\n}\n.calculator__keys:hover {\n  background-color: #000;\n  font-weight: 700;\n  color: #fff;\n}\n.calculator__clear:hover {\n  background-color: #00f;\n  color: #fff;\n}\n/*Story block*/\n.storyDiv {\n  text-align: center;\n  width: 250px;\n  height: 350px;\n  max-height: 370px;\n  border: dotted 2px #000;\n  border-radius: 5px;\n  float: right;\n  margin: 5px;\n  overflow: auto;\n}\n.storyBut {\n  border-radius: 28px;\n  color: #fff;\n  font-size: 13px;\n  background: #3498db;\n  padding: 10px 20px 10px 20px;\n  margin: 5px;\n  text-decoration: none;\n  outline: none;\n}\n.storyBut:hover {\n  background: #3cb0fd;\n  text-decoration: none;\n}\n.storyText {\n  border-bottom: dotted 1px #000;\n}\n", ""]);
 
 // exports
 
@@ -851,7 +921,7 @@ for (let i = 0; i < currencyClear.length; i++) {
         if (currencyClear[i].value === 'C') {
             document.getElementById('fromCurrency').value = '';
         } else if (currencyClear[i].value === 'D') {
-            document.getElementById('fromCurrency').value = document.getElementById('fromCurrency').value.slice(0, -1);
+                document.getElementById('fromCurrency').value = document.getElementById('fromCurrency').value.slice(0, -1);
         }
     })
 }

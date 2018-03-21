@@ -18,7 +18,7 @@
                   <option>UAN</option>
                   <option>USD</option>
                 </select>
-                <input class="field" id="fromCurrency" type="text" disabled>
+                <input class="field" id="fromCurrency" type="number" onkeyup="this.value = this.value.replace (/D/gi, '').replace (/^0+/, '')">
               </div>
               <div class="currency__region">
                 <p class="text">To</p>
@@ -26,7 +26,7 @@
                   <option>UAN</option>
                   <option>USD</option>
                 </select>
-                <input class="field" id="toCurrency" type="text" disabled>
+                <input class="field" id="toCurrency" type="number" onkeyup="this.value = this.value.replace (/D/gi, '').replace (/^0+/, '')">
               </div>
               <div class="currency__row">
                 <button class="currency__keys" type="button" value="7">7</button>
@@ -64,12 +64,13 @@
         <label for="tab-2">Calculator</label>
         <div class="content">
           <div class="calculator">
-            <div class="input" id="input"></div>
+            <input class="input" id="input">
             <div class="buttons">
               <div class="currency__row">
                 <div class="calculator__clear" id="clear">C</div>
                 <div class="calculator__clear" id="lastValue">D</div>
-                <div class="operators calculator__key--button">+</div>
+                <div class="operators">+</div>
+                <div class="minus" id="minus">+/-</div>
               </div>
               <div class="leftPanel">
                 <div class="currency__row">
@@ -82,18 +83,18 @@
                   <div class="calculator__keys">4</div>
                   <div class="calculator__keys">5</div>
                   <div class="calculator__keys">6</div>
-                  <div class="operators">&times</div>
+                  <div class="operators">*</div>
                 </div>
                 <div class="currency__row">
                   <div class="calculator__keys">1</div>
                   <div class="calculator__keys">2</div>
                   <div class="calculator__keys">3</div>
-                  <div class="operators">&divide;</div>
+                  <div class="operators">/</div>
                 </div>
                 <div class="currency__row">
                   <div class="calculator__keys">0</div>
                   <div class="operators">.</div>
-                  <div class="operators calculator__key--button" id="result">=</div>
+                  <div class="calculator__key--button" id="result">=</div>
                 </div>
               </div>
             </div>
